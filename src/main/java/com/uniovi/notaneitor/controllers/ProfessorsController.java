@@ -3,14 +3,21 @@ package com.uniovi.notaneitor.controllers;
 import com.uniovi.notaneitor.entities.Professor;
 import com.uniovi.notaneitor.services.ProfessorsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class ProfessorsController {
 
     @Autowired
     private ProfessorsService professorsService;
+
+    @RequestMapping("/professor/list")
+    public String getList(Model model) {
+        model.addAttribute("professor", professorsService.getProfessor());
+        return "professor/list";
+    }
 
     @RequestMapping(value = "/professor/add", method = RequestMethod.POST)
     public String setProfessor(@ModelAttribute Professor professor){

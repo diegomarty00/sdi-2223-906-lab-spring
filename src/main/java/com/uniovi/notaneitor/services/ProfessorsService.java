@@ -1,5 +1,6 @@
 package com.uniovi.notaneitor.services;
 
+import com.uniovi.notaneitor.entities.Mark;
 import com.uniovi.notaneitor.entities.Professor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,13 @@ public class ProfessorsService {
 
     public Professor getProfessor(Long id) {
         return professorList.stream().filter(p -> p.getId().equals(id)).findFirst().get();
+    }
+
+    public List<Professor> getProfessor() {
+        List<Professor> list = new ArrayList<Professor>();
+        for (Professor p : professorList)
+            list.add(p);
+        return list;
     }
 
     public void editProfessor(Long id, Professor professor) {

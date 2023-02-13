@@ -15,14 +15,15 @@ public class ProfessorsController {
 
     @RequestMapping("/professor/list")
     public String getList(Model model) {
-        model.addAttribute("professor", professorsService.getProfessor());
+        model.addAttribute("professorList", professorsService.getProfessor());
         return "professor/list";
     }
 
     @RequestMapping(value = "/professor/add", method = RequestMethod.POST)
     public String setProfessor(@ModelAttribute Professor professor){
         professorsService.addProfessor(professor);
-        return "Professor added";
+
+        return "redirect:/professor/list";
     }
     @RequestMapping(value = "/professor/add")
     public String getProfessor() {
@@ -33,7 +34,7 @@ public class ProfessorsController {
     public String getEdit(@ModelAttribute Professor professor, @PathVariable Long id){
         professor.setId(id);
         professorsService.editProfessor(id, professor);
-        return "Professor edited";
+        return "redirect:/professor/details/"+id;
     }
     @RequestMapping(value = "/professor/edit/{id}")
     public String getEdit(Model model, @PathVariable Long id) {
@@ -42,17 +43,15 @@ public class ProfessorsController {
     }
 
     @RequestMapping("/professor/details/{id}")
-    public String getDetail(@PathVariable Long id) {
-        if (professorsService.getProfessor(id) != null){
-            return professorsService.getProfessor(id).toString();
-        }
-        return "No professor with such id";
+    public String getDetail(Model model, @PathVariable Long id) {
+        model.addAttribute("professor", professorsService.getProfessor(id));
+        return "professor/details";
     }
 
     @RequestMapping("/professor/delete/{id}")
     public String deleteProfessor(@PathVariable Long id){
         professorsService.deleteProfessor(id);
-        return "Professor deleted";
+        return "redirect:/professor/list";
     }
 
 }

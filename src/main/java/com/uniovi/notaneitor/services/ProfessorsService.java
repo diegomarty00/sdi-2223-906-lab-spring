@@ -14,6 +14,7 @@ public class ProfessorsService {
 
 
     public void addProfessor(Professor professor) {
+        professor.setId((long) (professorList.size()+1));
         professorList.add(professor);
     }
 

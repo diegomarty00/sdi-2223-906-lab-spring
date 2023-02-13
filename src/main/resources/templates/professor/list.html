@@ -66,33 +66,35 @@
 
 
 <div class="container" id="main-container">
-    <h2>Notas</h2>
-    <p>Las notas que actualmente figuran en el sistema son las siguientes:</p>
+    <h2>Profesores</h2>
+    <p>Los profesores que actualmente figuran en el sistema son las siguientes:</p>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
             <tr>
-                <th scope="col">id</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Puntuación</th>
+                <th scope="col">Dni</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Categoría</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="mark : ${markList}">
-                <td scope="row" th:text="${mark.id}"> 1</td>
-                <td th:text="${mark.description}"> Ejercicio 1</td>
-                <td th:text="${mark.score}">10</td>
-                <td><a th:href="${'/mark/details/' + mark.id}">detalles</a></td>
-                <td><a th:href="${'/mark/edit/' + mark.id}">modificar</a></td>
-                <td><a th:href="${'/mark/delete/' + mark.id}">eliminar</a></td>
+            <tr th:each="professor : ${professorList}">
+                <td th:text="${professor.dni}"> Sin dni</td>
+                <td th:text="${professor.name}"> Sin nombre</td>
+                <td th:text="${professor.surname}"> Sin apellidos</td>
+                <td th:text="${professor.categoria}"> Sin categoria</td>
+                <td><a th:href="${'/professor/details/' + professor.id}">detalles</a></td>
+                <td><a th:href="${'/professor/edit/' + professor.id}">modificar</a></td>
+                <td><a th:href="${'/professor/delete/' + professor.id}">eliminar</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-	<div th:if="${#lists.isEmpty(markList)}"> No marks </div>
+	<div th:if="${#lists.isEmpty(professorList)}"> No professors </div>
 </div>
 
 

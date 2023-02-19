@@ -2,6 +2,7 @@ package com.uniovi.notaneitor.entities;
 import javax.persistence.*;
 import java.util.Set; //Colección que no admite duplicados
 @Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue
@@ -10,7 +11,11 @@ public class User {
     private String dni;
     private String name;
     private String lastName;
-    private String role;
+    private String password;
+
+    @Transient //propiedad que no se almacena en la tabla.
+    private String passwordConfirm;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Mark> marks;
     public User(String dni, String name, String lastName) {
@@ -45,4 +50,17 @@ public class User {
     public String getFullName() {
         return this.name + " " + this.lastName;
     }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
 }

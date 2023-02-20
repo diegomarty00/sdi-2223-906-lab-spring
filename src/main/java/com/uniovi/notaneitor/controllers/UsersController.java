@@ -53,10 +53,11 @@ public class UsersController {
         model.addAttribute("user", user);
         return "user/edit";
     }
+
     @RequestMapping(value = "/user/edit/{id}", method = RequestMethod.POST)
     public String setEdit(@PathVariable Long id, @ModelAttribute User user) {
 		user.setPassword(usersService.getUser(id).getPassword());
-        usersService.addUser(user);
+        usersService.editUser(user);
         return "redirect:/user/details/" + id;
     }
 

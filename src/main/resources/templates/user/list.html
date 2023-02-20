@@ -8,8 +8,16 @@
   <h2>Usuarios</h2>
   <p>Los usuarios que actualmente figuran en el sistema son los
     siguientes:</p>
+	
+	<button type="button" id="updateButton" class="btn btn-default">Actualizar</button>
+    <script>
+        $("#updateButton").click(function () {
+            $("#tableUsers").load('/user/list/update');
+        });
+    </script>
+	
   <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-hover" th:fragment="tableUsers" id = "tableUsers">
       <thead>
       <tr>
         <th scope="col">DNI</th>

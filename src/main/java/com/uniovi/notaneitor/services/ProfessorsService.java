@@ -1,51 +1,48 @@
 package com.uniovi.notaneitor.services;
 
-import com.uniovi.notaneitor.entities.Mark;
 import com.uniovi.notaneitor.entities.Professor;
+import com.uniovi.notaneitor.repositories.ProfessorsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProfessorsService {
 
-    private List<Professor> professorList = new ArrayList<>();
+    @Autowired
+    private ProfessorsRepository professorsRepository;
 
-
-    public void addProfessor(Professor professor) {
-        professor.setId((long) (professorList.size()+1));
-        professorList.add(professor);
+    public List<Professor> getProfessors(){
+        List<Professor> professors = new ArrayList<>();
+        professorsRepository.findAll().forEach(professors::add);
+        return professors;
     }
 
-    public void deleteProfessor(Long id) {
-        professorList.removeIf(p -> p.getId().equals(id));
+    public List<Professor> getProfessor(){
+        List<Professor> professors = new ArrayList<>();
+        professorsRepository.findAll().forEach(professors::add);
+        return professors;
+    }
+    public Professor getProfessor(Long id){
+        return professorsRepository.findById(id).get();
     }
 
-    public Professor getProfessor(Long id) {
-        return professorList.stream().filter(p -> p.getId().equals(id)).findFirst().get();
+    public void addProfessor(Professor prof){
+        professorsRepository.save(prof);
     }
 
-    public List<Professor> getProfessor() {
-        List<Professor> list = new ArrayList<Professor>();
-        for (Professor p : professorList)
-            list.add(p);
-        return list;
+    public void deleteProfessor(Long id){
+        professorsRepository.deleteById(id);
     }
 
-    public void editProfessor(Long id, Professor professor) {
-        for (Professor p : professorList) {
-            if (p.getId().equals(id)) {
-                if (p.getDni() != null)
-                    p.setDni(professor.getDni());
-                if (p.getName() != null)
-                    p.setName(professor.getName());
-                if (p.getSurname() != null)
-                    p.setDni(professor.getSurname());
-                if (p.getCategoria() != null)
-                    p.setCategoria(professor.getCategoria());
-            }
+    public Professor getProffesorByDni(String dni){
+        return professorsRepository.getProfessorByDni(dni);
+    }
 
-        }
+    public void addProffesor(Professor professor) {
+        professorsRepository.save(professor);
     }
 }

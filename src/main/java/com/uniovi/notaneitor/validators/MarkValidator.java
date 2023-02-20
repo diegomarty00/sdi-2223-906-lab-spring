@@ -27,8 +27,8 @@ public class MarkValidator implements Validator {
             errors.rejectValue("description", "Error.add.description.length");
         }
         /**if (mark.getUser().getDni() == user.getDni() ) {
-            errors.rejectValue("description", "Error.add.user.id");
-        }*/
+         errors.rejectValue("description", "Error.add.user.id");
+         }*/
 
     }
 }

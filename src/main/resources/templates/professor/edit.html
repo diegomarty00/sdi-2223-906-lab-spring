@@ -68,7 +68,7 @@
 </nav>
 <div class="container" id="main-container">
     <h2>Editar profesor</h2>
-    <form class="form-horizontal" method="post"th:action="${'/professor/edit/' +professor.id}">
+    <form class="form-horizontal" method="post"th:action="${'/professor/edit/' +professor.id}"th:object="${professor}">
         <div class="form-group">
             <label class="control-label col-sm-2" for="name">Nombre:</label>
             <div class="col-sm-10">
@@ -89,7 +89,7 @@
             <label class="control-label col-sm-2" for="dni">DNI:</label>
             <div class="col-sm-10">
                 <input th:value="${professor.dni}" id="dni" type="text" class="form-control" name="dni"
-                       placeholder="8 números seguido de la letra. Ejemplo: 12345678k"
+                       placeholder="Ocho números seguido de la letra. Ejemplo: 12345678k"
                        required="true"/>
                 <span class="text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>
             </div>

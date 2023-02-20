@@ -1,8 +1,11 @@
 package com.uniovi.notaneitor.entities;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
+@Entity
 public class Professor {
     @Id
     @GeneratedValue
@@ -14,12 +17,12 @@ public class Professor {
 
     public Professor(){}
 
-    public Professor(String dni, String name, String surname, String categoria, Long id){
+    public Professor(String dni, String name, String apellidos, String categoria) {
+        super();
         this.dni = dni;
         this.name = name;
         this.surname = surname;
         this.categoria = categoria;
-        this.id = id;
     }
 
     public String getDni() {
@@ -70,5 +73,13 @@ public class Professor {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Professor proffesor = (Professor) o;
+        return Objects.equals(dni, proffesor.dni);
     }
 }

@@ -4,9 +4,6 @@ import com.uniovi.notaneitor.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.*;
-
-import java.util.regex.Pattern;
-
 @Component
 public class SignUpFormValidator implements Validator {
     @Autowired
@@ -19,10 +16,9 @@ public class SignUpFormValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dni", "Error.empty");
-        if (user.getDni().length() != 9) {
+        if (user.getDni().length() < 5 || user.getDni().length() > 24) {
             errors.rejectValue("dni", "Error.signup.dni.length");}
-		if( user.getDni().length() == 9 && !Pattern.matches("[a-zA-Z]", ""+user.getDni().charAt(8))){
-            errors.rejectValue("dni", "Error.signup.dni.format");}
+
         if (usersService.getUserByDni(user.getDni()) != null) {
             errors.rejectValue("dni", "Error.signup.dni.duplicate");}
         if (user.getName().length() < 5 || user.getName().length() > 24) {

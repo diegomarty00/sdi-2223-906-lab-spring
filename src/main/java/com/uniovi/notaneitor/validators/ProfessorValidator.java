@@ -21,14 +21,14 @@ public class ProfessorValidator implements Validator {
         Professor professor = (Professor) target;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dni", "Error.empty");
         if (professor.getDni().length() != 9) {
-            errors.rejectValue("dni", "Error.professor.dni.length");}
+            errors.rejectValue("dni", "Error.edit.dni.format");}
         if( professor.getDni().length() == 9 && !Pattern.matches("[a-zA-Z]", ""+professor.getDni().charAt(8))){
-            errors.rejectValue("dni", "Error.professor.dni.format");}
+            errors.rejectValue("dni", "Error.edit.dni.format");}
         if (usersService.getUserByDni(professor.getDni()) != null) {
-            errors.rejectValue("dni", "Error.professor.dni.duplicate");}
+            errors.rejectValue("dni", "Error.edit.dni.duplicate");}
         if (professor.getName().length() < 5 || professor.getName().length() > 24) {
-            errors.rejectValue("name", "Error.professor.name.length");}
+            errors.rejectValue("name", "Error.edit.name.length");}
         if (professor.getSurname().length() < 5 || professor.getSurname().length() > 24) {
-            errors.rejectValue("surname", "Error.professor.surname.length");}
+            errors.rejectValue("surname", "Error.edit.surname.length");}
     }
 }

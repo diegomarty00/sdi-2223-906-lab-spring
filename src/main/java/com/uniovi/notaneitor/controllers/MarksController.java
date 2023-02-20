@@ -19,7 +19,7 @@ public class MarksController {
     private MarksService marksService;
     @Autowired
     private UsersService usersService;
-	@Autowired
+    @Autowired
     private MarkValidator markValidator;
 
     @RequestMapping("/mark/list")
@@ -33,10 +33,10 @@ public class MarksController {
         return "mark/add";
     }*/
 
-   /* @RequestMapping("/mark/details/{id}")
-    public String getDetail(@PathVariable Long id) {
-        return marksService.getMark(id).toString();
-    }*/
+    /* @RequestMapping("/mark/details/{id}")
+     public String getDetail(@PathVariable Long id) {
+         return marksService.getMark(id).toString();
+     }*/
     @RequestMapping("/mark/details/{id}")
     public String getDetail(Model model, @PathVariable Long id) {
         model.addAttribute("mark", marksService.getMark(id));
@@ -70,10 +70,10 @@ public class MarksController {
     @RequestMapping(value="/mark/add")
     public String getMark(Model model){
         model.addAttribute("usersList", usersService.getUsers());
-		model.addAttribute("mark", new Mark());
+        model.addAttribute("mark", new Mark());
         return "mark/add";
     }
-	@RequestMapping(value = "/mark/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/mark/add", method = RequestMethod.POST)
     public String setMark(@Validated Mark mark, BindingResult result) {
 
         markValidator.validate(mark,result);

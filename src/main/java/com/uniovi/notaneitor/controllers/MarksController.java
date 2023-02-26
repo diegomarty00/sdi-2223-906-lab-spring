@@ -119,6 +119,7 @@ public class MarksController {
     @RequestMapping(value = "/mark/edit/{id}", method = RequestMethod.POST)
     public String setEdit(@Validated Mark mark, @PathVariable Long id,
                           BindingResult result) {
+
         markValidator.validate(mark,result);
         if(result.hasErrors()){
             return "/mark/edit";

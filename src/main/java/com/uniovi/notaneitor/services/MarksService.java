@@ -26,14 +26,7 @@ public class MarksService {
 
     }
     public Mark getMark(Long id){
-        Set<Mark> consultedList = (Set<Mark>) httpSession.getAttribute("consultedList");
-        if ( consultedList == null ) {
-            consultedList = new HashSet<Mark>();
-        }
-        Mark obtainedMark = marksRepository.findById(id).get();
-        consultedList.add(obtainedMark);
-        httpSession.setAttribute("consultedList", consultedList);
-        return obtainedMark;
+        return marksRepository.findById(id).get();
     }
     public void addMark(Mark mark) {
         // Si en Id es null le asignamos el último + 1 de la lista

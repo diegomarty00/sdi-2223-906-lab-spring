@@ -16,11 +16,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String dni) throws UsernameNotFoundException {
         User user = usersRepository.findByDni(dni);
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
         if (user == null) {
             throw new UsernameNotFoundException(dni);
         }
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        //grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
         return new org.springframework.security.core.userdetails.User(
                 user.getDni(), user.getPassword(), grantedAuthorities);
     }

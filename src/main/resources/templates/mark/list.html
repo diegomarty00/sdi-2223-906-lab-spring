@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Notaneitor</title>
     <meta charset="utf-8"/>
@@ -76,10 +78,17 @@
     </form>
     <p>Las notas que actualmente figuran en el sistema son las siguientes:</p>
     <button type="button" id="updateButton" class="btn btn-primary">Actualizar</button>
-    <script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
         $( "#updateButton" ).click(function() {
-            $("#tableMarks").load('/mark/list/update');
+            let numberPage = [[${param.page}]];
+            let urlUpdate = '/mark/list/update';
+            if (numberPage != null ){
+                urlUpdate += "?page="+numberPage[0];
+            }
+            $("#tableMarks").load(urlUpdate);
         });
+        /*]]>*/
     </script>
     <div class="table-responsive">
         <table class="table table-hover" th:fragment="tableMarks" id="tableMarks">
@@ -107,9 +116,14 @@
                                     class="btn btn-success">Reenviar</button>
                             <script th:inline="javascript">
                                 /*<![CDATA[*/
-                                $( "#resendButton"+ "[[${mark.id}]]").click(function() {
+                                $("#resendButton"+ "[[${mark.id}]]").click(function() {
                                     $.get( "/mark/[[${mark.id}]]/noresend", function( data ) {
-                                        $("#tableMarks").load('/mark/list/update');
+                                        let numberPage = [[${param.page}]];
+                                        let urlUpdate = '/mark/list/update';
+                                        if ( numberPage != null ){
+                                            urlUpdate += "?page="+numberPage[0];
+                                        }
+                                        $("#tableMarks").load(urlUpdate);
                                     });
                                 });
                                 /*]]>*/
@@ -123,7 +137,12 @@
                                 /*<![CDATA[*/
                                 $( "#noresendButton"+ "[[${mark.id}]]" ).click(function() {
                                     $.get( "/mark/[[${mark.id}]]/resend", function( data ) {
-                                        $("#tableMarks").load('/mark/list/update');
+                                        var numberPage = [[${param.page}]];
+                                        var urlUpdate = '/mark/list/update';
+                                        if ( numberPage != null ){
+                                            urlUpdate += "?page="+numberPage[0];
+                                        }
+                                        $("#tableMarks").load(urlUpdate);
                                     });
                                 });
                                 /*]]>*/
@@ -138,7 +157,9 @@
         </table>
     </div>
 	<div th:if="${#lists.isEmpty(markList)}"> No marks </div>
+
 </div>
+<footer th:replace="fragments/pagination"/>
 <footer th:replace="fragments/footer"/>
 </body>
 </html>

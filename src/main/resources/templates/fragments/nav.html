@@ -11,7 +11,7 @@
     <li class="nav-item ">
         <a class="nav-link" href="/home">Home<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item dropdown active">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" datatoggle="dropdown"
            aria-haspopup="true" aria-expanded="false"> Gestión de notas
         </a>
@@ -20,7 +20,7 @@
           <a class="dropdown-item" href="/mark/add" sec:authorize="hasRole('ROLE_PROFESSOR')">Agregar Nota</a>
         </div>
       </li>
-      <li class="nav-item dropdown active " sec:authorize="hasRole('ROLE_ADMIN')" >
+      <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')" >
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" datatoggle="dropdown"
            aria-haspopup="true" aria-expanded="false"> Gestión de usuarios
         </a>
@@ -31,10 +31,8 @@
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="profesorDropdown"
-           role="button" data-toggle="dropdown" aria-haspopup="true"
-           aria-expanded="false">
-          Gestión de profesores
+        <a class="nav-link dropdown-toggle" href="#" id="professorDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false"> Gestión de profesores
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/professor/add" sec:authorize="hasRole('ROLE_ADMIN')">Agregar profesor</a>

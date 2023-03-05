@@ -1,9 +1,14 @@
 package com.uniovi.notaneitor;
 
+import com.uniovi.notaneitor.pageobjects.PO_HomeView;
+import com.uniovi.notaneitor.pageobjects.PO_Properties;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -15,7 +20,7 @@ class Sdi2223906SpringApplicationTests {
     //static String PathFirefox = "/Applications/Firefox.app/Contents/MacOS/firefox-bin";
     //static String Geckodriver = "/Users/USUARIO/selenium/geckodriver-v0.30.0-macos";
 
-    //Com鷑 a Windows y a MACOSX
+    //Com锟絥 a Windows y a MACOSX
     static WebDriver driver = getDriver(PathFirefox, Geckodriver);
     static String URL = "http://localhost:8090";
     public static WebDriver getDriver(String PathFirefox, String Geckodriver) {
@@ -32,7 +37,7 @@ class Sdi2223906SpringApplicationTests {
     public void setUp(){
         driver.navigate().to(URL);
     }
-    //Despu閟 de cada prueba se borran las cookies del navegador
+    //Despu锟絪 de cada prueba se borran las cookies del navegador
     @AfterEach
     public void tearDown(){
         driver.manage().deleteAllCookies();
@@ -40,7 +45,7 @@ class Sdi2223906SpringApplicationTests {
     //Antes de la primera prueba
     @BeforeAll
     static public void begin() {}
-    //Al finalizar la 鷏tima prueba
+    //Al finalizar la 锟絣tima prueba
     @AfterAll
     static public void end() {
         //Cerramos el navegador al finalizar las pruebas
@@ -49,16 +54,35 @@ class Sdi2223906SpringApplicationTests {
 
     @Test
     @Order(1)
-    void PR01(){}
+    void PR01A() {
+        PO_HomeView.checkWelcomeToPage(driver, PO_Properties.getSPANISH());
+    }
     @Test
-    @Order(1)
-    void PR02(){}
+    @Order(2)
+    void PR01B() {
+        List<WebElement> welcomeMessageElement = PO_HomeView.getWelcomeMessageText(driver,
+                PO_Properties.getSPANISH());
+        Assertions.assertEquals(welcomeMessageElement.get(0).getText(),
+                PO_HomeView.getP().getString("welcome.message", PO_Properties.getSPANISH()));
+    }
+    //PR02. Opci贸n de navegaci贸n. Pinchar en el enlace Registro en la p谩gina home
     @Test
-    @Order(1)
-    void PR03(){}
+    @Order(3)
+    public void PR02() {
+        PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+    }
+    //PR03. Opci贸n de navegaci贸n. Pinchar en el enlace Identif铆cate en la p谩gina home
     @Test
-    @Order(1)
-    void PR04(){}
+    @Order(4)
+    public void PR03() {
+        PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+    }
+    @Test
+    @Order(5)
+    public void PR04() {
+        PO_HomeView.checkChangeLanguage(driver, "btnSpanish", "btnEnglish",
+                PO_Properties.getSPANISH(), PO_Properties.getENGLISH());
+    }
     @Test
     @Order(1)
     void PR05(){}
